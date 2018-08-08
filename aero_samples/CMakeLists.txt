@@ -77,6 +77,9 @@ target_link_libraries(stoa_atos_test_node ${catkin_LIBRARIES})
 add_executable(fullbody_test_node tests/fullbody_test.cc)
 target_link_libraries(fullbody_test_node ${catkin_LIBRARIES})
 
+add_executable(fullarm_test_node tests/fullarm_test.cc)
+target_link_libraries(fullarm_test_node ${catkin_LIBRARIES})
+
 add_executable(lifter_ik_test_node tests/lifter_ik.cc)
 target_link_libraries(lifter_ik_test_node ${catkin_LIBRARIES})
 

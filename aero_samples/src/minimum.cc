@@ -13,7 +13,7 @@ int main(int argc, char **argv)
   aero::interface::AeroMoveitInterface::Ptr robot(new aero::interface::AeroMoveitInterface(nh));
   ROS_INFO("reseting robot pose");
   robot->setPoseVariables(aero::pose::reset_manip);
-  robot->sendModelAngles(3000);
+  robot->sendModelAngles(3000, aero::ikrange::arm_lifter);
   sleep(3);
 
   ROS_INFO("demo node finished");
