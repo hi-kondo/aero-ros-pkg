@@ -109,7 +109,6 @@ then
   sed -i -e "36,48s:^://:" $input_file
   echo "renewing AeroMoveitInterface.hh"
   sed -i.bak -e '/USING_UPPERTYPEF/ s/1/0/' $input_file2 
-  fi
 else
   input_file=$(rospack find aero_ros_controller)/src/AeroHandController.cc
   input_file2=$(rospack find aero_std)/include/aero_std/AeroMoveitInterface.hh
