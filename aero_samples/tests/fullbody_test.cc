@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
   robot->sendLifter(0.0, 0.0);
   robot->waitInterpolation();
-while(1){
+
   // set real robot's joint angles to the robot model in interface 
   robot->setRobotStateToCurrentState();
 
@@ -209,8 +209,8 @@ while(1){
   robot->waitInterpolation();
 
   sleep(5);
-}
-#if 0
+
+#if 1
   // test lifter
   ROS_INFO("lifter x:0.0 z:-0.4");
   robot->sendLifter(0.0, -0.4, 3000);

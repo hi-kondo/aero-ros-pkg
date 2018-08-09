@@ -608,19 +608,15 @@ void aero::interface::AeroMoveitInterface::setPoseVariables(const aero::pose &_p
   switch(_pose) {
   case aero::pose::reset:
     setRobotStateToNamedTarget("upper_body", "reset-manip-pose");
-    ROS_INFO("reset-manip-pose");
     break;
   case aero::pose::reset_manip:
     setRobotStateToNamedTarget("upper_body", "reset-pose");
-    ROS_INFO("reset-pose");
     break;
   case aero::pose::move:
     setRobotStateToNamedTarget("upper_body", "move-safe");
-    ROS_INFO("move-safe");
     break;
   case aero::pose::initial:
     setRobotStateToNamedTarget("upper_body", "initial");
-    ROS_INFO("initial");
     break;
   default:
     break;
