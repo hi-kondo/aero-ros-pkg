@@ -31,23 +31,28 @@ aero::interface::AeroMoveitInterface::AeroMoveitInterface(ros::NodeHandle &_nh, 
       joint_model_group_map[#name] = jmg_##name;             \
     }                                                        \
   }
-
+#if USING_UPPERTYPEF 
   _ADD_JMG_MAP(larm);
   _ADD_JMG_MAP(larm_with_waist);
   _ADD_JMG_MAP(larm_with_lifter);
   _ADD_JMG_MAP(larm_with_torso);
-  _ADD_JMG_MAP(rarm);
+
   _ADD_JMG_MAP(rarm_with_waist);
-  _ADD_JMG_MAP(rarm_with_lifter);
   _ADD_JMG_MAP(rarm_with_torso);
 
-  _ADD_JMG_MAP(lifter);
   _ADD_JMG_MAP(waist);
   _ADD_JMG_MAP(torso);
   _ADD_JMG_MAP(both_arms);
+  _ADD_JMG_MAP(head);
+
+#endif
+  _ADD_JMG_MAP(rarm);
+  _ADD_JMG_MAP(rarm_with_lifter);
+
+  _ADD_JMG_MAP(lifter);
+ 
   _ADD_JMG_MAP(upper_body);
   _ADD_JMG_MAP(whole_body);
-  _ADD_JMG_MAP(head);
 
   //variables
   tracking_mode_flag_ = false;
@@ -58,8 +63,9 @@ aero::interface::AeroMoveitInterface::AeroMoveitInterface(ros::NodeHandle &_nh, 
   ROS_INFO("  AERO MOVEIT INTERFACE is initialized");
   ROS_INFO("----------------------------------------");
 
-  //
+#if USING_UPPERTYPEF
   alc.reset(new aero::lookat_commander::AeroLookatCommander(_nh, this));
+#endif
 }
 
 //////////////////////////////////////////////////
@@ -602,15 +608,19 @@ void aero::interface::AeroMoveitInterface::setPoseVariables(const aero::pose &_p
   switch(_pose) {
   case aero::pose::reset:
     setRobotStateToNamedTarget("upper_body", "reset-manip-pose");
+    ROS_INFO("reset-manip-pose");
     break;
   case aero::pose::reset_manip:
     setRobotStateToNamedTarget("upper_body", "reset-pose");
+    ROS_INFO("reset-pose");
     break;
   case aero::pose::move:
     setRobotStateToNamedTarget("upper_body", "move-safe");
+    ROS_INFO("move-safe");
     break;
   case aero::pose::initial:
     setRobotStateToNamedTarget("upper_body", "initial");
+    ROS_INFO("initial");
     break;
   default:
     break;
@@ -730,8 +740,14 @@ void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(int _time_ms, a
 {
   std::vector<double> av_mg;
   std::vector<std::string> j_names;
+
+#if USING_UPPERTYPEF == 1
   j_names = jmg_both_arms->getVariableNames();
   kinematic_state->copyJointGroupPositions("both_arms", av_mg);
+#elif USING_UPPERTYPEF == 0
+  j_names = jmg_rarm->getVariableNames();
+  kinematic_state->copyJointGroupPositions("rarm", av_mg);
+#endif
 
   if (_move_waist == aero::ikrange::upperbody || _move_waist == aero::ikrange::wholebody) {
     std::vector<double> extra_av_mg;
@@ -745,10 +761,10 @@ void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(int _time_ms, a
     std::vector<double> extra_av_mg;
     kinematic_state->copyJointGroupPositions("lifter", extra_av_mg);
     const std::vector<std::string> &extra_j_names = jmg_lifter->getVariableNames();
-
     std::copy(extra_av_mg.begin(),   extra_av_mg.end(),   std::back_inserter(av_mg));
     std::copy(extra_j_names.begin(), extra_j_names.end(), std::back_inserter(j_names));
   }
+#if USING_UPPERTYPEF
   if (!tracking_mode_flag_) {
     std::vector<double> extra_av_mg;
     kinematic_state->copyJointGroupPositions("head", extra_av_mg);
@@ -757,6 +773,7 @@ void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(int _time_ms, a
     std::copy(extra_av_mg.begin(),   extra_av_mg.end(),   std::back_inserter(av_mg));
     std::copy(extra_j_names.begin(), extra_j_names.end(), std::back_inserter(j_names));
   }
+  #endif
 #if 0
   ROS_DEBUG("jn size: %ld, av size: %ld", j_names.size(), av_mg.size());
   for(int i = 0; i < j_names.size(); i++)
@@ -769,6 +786,7 @@ void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(int _time_ms, a
 void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(const std::string &_move_group, int _time_ms)
 {
   std::vector<double> av_mg;
+
   kinematic_state->copyJointGroupPositions(_move_group, av_mg);
   std::vector<std::string> j_names;
   j_names = getJointModelGroup(_move_group)->getVariableNames();
@@ -780,6 +798,7 @@ void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(const std::stri
 void aero::interface::AeroMoveitInterface::sendAngleVectorAsync_(const std::vector<double> &_av,
                                                                  const std::vector<std::string> &_joint_names, int _time_ms)
 {
+
   boost::mutex::scoped_lock sl(ri_mutex_);
   ros::Time start_time = ros::Time::now() + ros::Duration(send_trajectory_offset_);
   // fill sent_command
