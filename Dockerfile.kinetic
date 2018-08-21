@@ -55,4 +55,4 @@ RUN if [ "$RUN_TESTS" = "true" ]; then \
 RUN if [ "$RUN_TESTS" = "true" ]; then \
     source ${WORKSPACE}/devel/setup.bash \
     && catkin run_tests --no-deps aero_samples; fi
-    #&& catkin_test_results ${WORKSPACE}/build/aero_samples; fi
+    && catkin_test_results ${WORKSPACE}/build/aero_samples; fi
