@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="AeroLowerRobot" >
+
+  <!-- The following included files set up definitions of parts of the robot body -->
+  <!-- common variables -->
+  <xacro:include filename="$(find aero_description)/urdf/common.xacro" />
+  <!-- wraps lifter and wheels-->
+  <xacro:include filename="$(find aero_description)/urdf/aero-wheels.urdf.xacro" />
+ 
+ <!-- Now we can start using the macros included above to define the actual robot -->
+ <xacro:aero-wheels base_link="base_link"/>
+
+ <!-- gazebo settings -->
+ <!-- camera -->
+ <link name="camera_frame" />
+ <link name="camera_optical_frame" />
+ <joint name="camera_setting" type="fixed" >
+   <parent link="head_link" />
+   <child  link="camera_frame" />
+   <origin xyz="0 0.035 0.09" rpy="0 0.15 0" />
+ </joint>
+ <joint name="camera_optical" type="fixed" >
+   <parent link="camera_frame" />
+   <child  link="camera_optical_frame" />
+   <origin xyz="0 0 0" rpy="-1.570796326795 0 -1.570796326795" />
+ </joint>
+ <xacro:gazebo_camera link_name="camera_frame"
+                      frame_name="camera_optical_frame" />
+
+ <!-- laser -->
+ <xacro:gazebo_laser_sensor link_name="wheels_base_laser_link"
+                            frame_name="wheels_base_laser_link" />
+
+ <!-- joint control -->
+ <xacro:gazebo_trajectory_controller />
+
+ <!-- mobile base -->
+ <xacro:gazebo_base_controller base_frame="base_link" />
+
+
+
+</robot>

@@ -15,18 +15,6 @@
   <xacro:macro name="aero_upper" params="base_link disable_mesh:=false r_hand_link:=r_hand_link">
   
   <link name="${base_link}">
-   <xacro:unless value="${disable_mesh}"><visual>
-     <origin xyz="0 0 0.01" rpy="0 0 0"/>
-     <geometry>
-       <mesh filename="package://aero_description/meshes/typeC_arm/WT_hip_base_F.DAE" scale="1 1 1"/>
-     </geometry>
-   </visual> </xacro:unless>
-   <xacro:unless value="${disable_mesh}"> <collision>
-      <origin xyz="0 0 0.01" rpy="0 0 0"/>
-      <geometry>
-        <mesh filename="package://aero_description/meshes/typeC_arm/WT_hip_base_F.DAE" scale="1 1 1"/>
-      </geometry>
-    </collision> </xacro:unless>
     <inertial>
       <origin xyz="0.0 0 0" rpy="0 0 0"/>
       <mass value="1.257"/>
