@@ -136,7 +136,7 @@
     <parent link="r_elbow_link"/>
     <child link="r_wrist_y_link"/>
     <dynamics damping="0.1"/>
-  <limit lower="-1.5707" upper="1.5707" effort="100" velocity="1.5" />
+  <limit lower="-2.0" upper="2.0" effort="100" velocity="1.5" />
   </joint>
   <joint name="r_wrist_p_joint" type="revolute">
     <origin xyz="0 0 0.195" rpy="0 0 0"/>
