@@ -206,7 +206,7 @@ void Joy_Controll::getPS3(const sensor_msgs::JoyPtr& _ps3){
     else if(lifter_position2 < -0.4){
       //lifter_position1 = -400;
       lifter_position2 = -0.4;
-      ROS_INFO("lifter_position < -400");
+      ROS_INFO("lifter_position < -0.4");
     }
     ROS_INFO("lifter_pos:%f",lifter_position2);
    }

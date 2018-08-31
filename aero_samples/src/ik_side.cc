@@ -36,12 +36,15 @@ int main(int argc, char **argv)
   ROS_INFO("w:%f x:%f y%f z:%f", pose1.orientation.w, pose1.orientation.x, pose1.orientation.y, pose1.orientation.z);
 #endif
   //aero::Vector3 pos(0.57, -0.15, 1.1);
-  aero::Translation pos(0.85, -0.15, 0.80);
+  //aero::Translation pos(0.85, -0.15, 0.80);
+   aero::Translation pos(0.7, -0.0, 0.70);
+
   aero::Quaternion  rot(1.0, 0.0, 0.0, 0.0);
   aero::Quaternion  init_rot(1.0, 0.0, 0.0, 0.0); //default Quaternion
   aero::Quaternion  rot_right(0.707,0.707,0.0,0.0); //side Quaternion
   aero::Quaternion  rot_left(0.707,-0.707,0.0,0.0); //side Quaternion
-  aero::Transform   pose1 = pos * rot;
+  aero::Quaternion  rot_test(0.707,-0.707,0.0,0.0); //side Quaternion
+  aero::Transform   pose1 = pos * rot * rot_test;
 
   ROS_INFO("ik target");
   ROS_INFO("pos");
@@ -71,6 +74,21 @@ int main(int argc, char **argv)
   // bool ik_result = robot->setFromIK(aero::arm::rarm, aero::ikrange::torso, pos, qua, aero::eef::grasp);
   //
 
+  //fk_test
+  #if 0  
+  double r_wrist_y_to = -1.57;
+  aero::joint_angle_map joint_angles;
+  robot->getRobotStateVariables(joint_angles);// save angles from robot model
+  ROS_INFO("left elbow moves from %f to %f", joint_angles[aero::joint::r_wrist_y], r_wrist_y_to);
+  joint_angles[aero::joint::r_wrist_y] = r_wrist_y_to;// replace elbow's angle value
+
+  ROS_INFO("moveing left elbow");
+  robot->setRobotStateVariables(joint_angles);
+  robot->sendModelAngles(2000, aero::ikrange::arm_lifter);// send to robot
+  sleep(1);
+  #endif
+
+  #if 1
   if (ik_result) {// if ik successed, send the joint values to real robot
     ROS_INFO("ik success !");
     robot->sendModelAngles(aero::arm::rarm, aero::ikrange::arm_lifter, 3000);
@@ -82,6 +100,7 @@ int main(int argc, char **argv)
   } else {
     ROS_WARN("ik failed");
   }
+  #endif
 
   ROS_INFO("demo node finished");
   ros::shutdown();
