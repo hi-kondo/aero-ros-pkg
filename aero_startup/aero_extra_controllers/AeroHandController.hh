@@ -1,9 +1,9 @@
 /*
  * This file auto-generated from script. Do not Edit!
- * Original : aero_description/arm_typeC/controllers/AeroHandController.hh
+ * Original : /home/seed/ros/kinetic/src/aero-ros-pkg/aero_description/../aero_shop/trx_s/AeroHandController.hh
 */
 /// robot dependant constant // for fcsc hand
-#define POSITION_Right 7
+#define POSITION_Right 12
 #define POSITION_Left  27
 
 const std::vector<std::string > rhand_joints = { "r_thumb_joint" };
