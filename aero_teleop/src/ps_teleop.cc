@@ -307,6 +307,18 @@ void aero::teleop::ps_teleop::jointMode
   } else {
     enable_right_wrist = false;
   }
+  //hand
+  if (joy_msg->buttons[enable_grasp_angle_button]) {
+    if (!in_grasp_mode) {
+      robot->openHand(aero::arm::rarm);
+      in_grasp_mode = true;
+    }
+  } else {
+    in_grasp_mode = false;
+  }
+
+  if (joy_msg->buttons[grasp_R_button])
+    robot->sendGrasp(aero::arm::rarm, 100);
 
 
 }

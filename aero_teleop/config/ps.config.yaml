@@ -27,24 +27,20 @@ enable_turbo_button: -1
 ## other basic functions
 ### use circle for right grasp, rectangle for left grasp
 grasp_button:
-  L: 15
   R: 13
 ### use L2, R2 for setting grasp angle
 grasp_angle_axis:
-  L: 8
   R: 9
 min_grasp_angle:
-  L: -1.0
   R: -1.0
 range_grasp_angle:
-  L: 2.0
   R: 2.0
 ### use X to open grasp
 enable_grasp_angle: 14
 ### left stick for upward, right for forward
 lifter_axis:
-  x: 3
-  z: 1
+  x: 2
+  z: 3
 scale_lifter:
   x: 0.005
   z: 0.005
@@ -62,30 +58,28 @@ shoulder:
   pitchm: 6
   ### use left stick for yaw
   yaw: 0
-  ### use L1, R1 to trigger upper arm
+  ### use R1 to trigger upper arm
   enable_right: 11
 scale_shoulder:
-  pitch: -0.01
-  yaw: 0.02
+  pitch: -0.05
+  yaw: 0.06
 ## elbow
 elbow:
   pitchp: 4
   pitchm: 6
   yawp: 7
   yawm: 5
-  ### use L2, R2 to trigger forearm
+  ### use R2 to trigger forearm
   enable_right: 9
 scale_elbow:
-  yaw: 0.03
-  pitch: 0.01
+  yaw: 0.3
+  pitch: 0.05
 ## wrist
 wrist:
   pitchp: 4
   pitchm: 6
-  yawp: 7
-  yawm: 5
   ### use circle, rectangle to trigger wrist
   enable_right: 13
 scale_wrist:
   yaw: 0.03
-  pitch: 0.01
+  pitch: 0.05
