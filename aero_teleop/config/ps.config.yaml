@@ -72,7 +72,7 @@ elbow:
   ### use R2 to trigger forearm
   enable_right: 9
 scale_elbow:
-  yaw: 0.3
+  yaw: 0.05
   pitch: 0.05
 ## wrist
 wrist:
