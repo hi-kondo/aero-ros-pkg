@@ -51,6 +51,8 @@ aero::teleop::ps_teleop::ps_teleop
 
   sent_disable_msg = false;
 
+
+
   joy_sub = nh_param.subscribe<sensor_msgs::Joy>("/joy", 1, &aero::teleop::ps_teleop::joyCallback, this);
 
   for (auto j = aero::joint_map.begin(); j != aero::joint_map.end(); ++j) {
@@ -73,7 +75,7 @@ aero::teleop::ps_teleop::~ps_teleop() {
 
 ////////////////////////////////////////////////////////////////////
 void aero::teleop::ps_teleop::loop() {
-  ROS_INFO("enable lifter:%d", enable_lifter);
+
   if (enable_lifter) {
     double x, z;
     robot->getLifter(x, z);
@@ -156,9 +158,9 @@ void aero::teleop::ps_teleop::joyCallback
     robot->setPoseVariables(aero::pose::reset_manip);
     if (joy_msg->buttons[enable_lifter_button]) { // also reset lifter
       robot->setLifter(0.0, 0.0);
-      robot->sendModelAngles(5000, aero::ikrange::wholebody);
+      robot->sendModelAngles(3000, aero::ikrange::arm);
     } else {
-      robot->sendModelAngles(5000, aero::ikrange::upperbody);
+      robot->sendModelAngles(3000, aero::ikrange::arm);
     }
     during_reset = true;
     reset_start_time = ros::Time::now();
@@ -248,6 +250,53 @@ void aero::teleop::ps_teleop::basicMode
 ////////////////////////////////////////////////////////////////////
 void aero::teleop::ps_teleop::jointMode
 (const sensor_msgs::Joy::ConstPtr &joy_msg) {
+
+// handle twist
+  geometry_msgs::Twist cmd_vel_msg;
+
+  if (enable_turbo_button >= 0 && joy_msg->buttons[enable_turbo_button]) {
+    if (axis_linear_map.find(aero::teleop::X) != axis_linear_map.end())
+      cmd_vel_msg.linear.x = joy_msg->axes[axis_linear_map[aero::teleop::X]] * scale_linear_turbo_map[aero::teleop::X];
+    if (axis_linear_map.find(aero::teleop::Y) != axis_linear_map.end())
+      cmd_vel_msg.linear.y = joy_msg->axes[axis_linear_map[aero::teleop::Y]] * scale_linear_turbo_map[aero::teleop::Y];
+    if (axis_linear_map.find(aero::teleop::Z) != axis_linear_map.end())
+      cmd_vel_msg.linear.z = joy_msg->axes[axis_linear_map[aero::teleop::Z]] * scale_linear_turbo_map[aero::teleop::Z];
+    if (axis_angular_map.find(aero::teleop::YAW) != axis_angular_map.end())
+      cmd_vel_msg.angular.z = joy_msg->axes[axis_angular_map[aero::teleop::YAW]] * scale_angular_turbo_map[aero::teleop::YAW];
+
+    cmd_vel_pub.publish(cmd_vel_msg);
+    sent_disable_msg = false;
+  }
+  else if (joy_msg->buttons[enable_button]) {
+    if (axis_linear_map.find(aero::teleop::X) != axis_linear_map.end())
+      cmd_vel_msg.linear.x = joy_msg->axes[axis_linear_map[aero::teleop::X]] * scale_linear_map[aero::teleop::X];
+    if (axis_linear_map.find(aero::teleop::Y) != axis_linear_map.end())
+      cmd_vel_msg.linear.y = joy_msg->axes[axis_linear_map[aero::teleop::Y]] * scale_linear_map[aero::teleop::Y];
+    if (axis_linear_map.find(aero::teleop::Z) != axis_linear_map.end())
+      cmd_vel_msg.linear.z = joy_msg->axes[axis_linear_map[aero::teleop::Z]] * scale_linear_map[aero::teleop::Z];
+    if (axis_angular_map.find(aero::teleop::YAW) != axis_angular_map.end())
+      cmd_vel_msg.angular.z = joy_msg->axes[axis_angular_map[aero::teleop::YAW]] * scale_angular_map[aero::teleop::YAW];
+
+    cmd_vel_pub.publish(cmd_vel_msg);
+    sent_disable_msg = false;
+  }
+  else {
+    // When enable button is released, immediately send a single no-motion command
+    // in order to stop the robot.
+    if (!sent_disable_msg) {
+      cmd_vel_pub.publish(cmd_vel_msg);
+      sent_disable_msg = true;
+    }
+  }
+
+  if (joy_msg->buttons[enable_lifter_button]) {
+    enable_lifter = true;
+    lifter_dx = joy_msg->axes[lifter_axis_map[aero::teleop::X]] * scale_lifter_map[aero::teleop::X];
+    lifter_dz = joy_msg->axes[lifter_axis_map[aero::teleop::Z]] * scale_lifter_map[aero::teleop::Z];
+  } else {
+    enable_lifter = false;
+  }
+
   // shoulder
 
   if (joy_msg->buttons[shoulder_map[aero::teleop::RIGHT_FLAG]]) {
@@ -264,7 +313,7 @@ void aero::teleop::ps_teleop::jointMode
       right_shoulder_dp = -scale_shoulder_map[aero::teleop::PITCH];
     else
       right_shoulder_dp = 0;
-    right_shoulder_dy = joy_msg->axes[shoulder_map[aero::teleop::YAW]] * scale_shoulder_map[aero::teleop::YAW];
+      right_shoulder_dy = joy_msg->axes[shoulder_map[aero::teleop::YAW]] * scale_shoulder_map[aero::teleop::YAW];
   } else {
     enable_right_shoulder = false;
   }
@@ -314,7 +363,7 @@ void aero::teleop::ps_teleop::jointMode
       in_grasp_mode = true;
     }
   } else {
-    in_grasp_mode = false;
+      in_grasp_mode = false;
   }
 
   if (joy_msg->buttons[grasp_R_button])
