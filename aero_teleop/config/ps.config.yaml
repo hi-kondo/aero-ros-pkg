@@ -79,7 +79,7 @@ wrist:
   pitchp: 4
   pitchm: 6
   ### use circle, rectangle to trigger wrist
-  enable_right: 13
+  enable_right: 15
 scale_wrist:
   yaw: 0.03
   pitch: 0.05
