@@ -4,6 +4,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Joy.h>
+#include <std_msgs/Bool.h>
 
 #include <aero_std/AeroMoveitInterface.hh>
 #include <aero_startup/GraspControl.h>
@@ -36,6 +37,7 @@ namespace aero {
 
     static const int BASIC_MODE = 0;
     static const int JOINT_MODE = 1;
+    static const int IK_MODE = 2;
 
 
     class ps_teleop {
@@ -49,6 +51,7 @@ namespace aero {
       virtual void joyCallback(const sensor_msgs::Joy::ConstPtr &joy_msg);
       void basicMode(const sensor_msgs::Joy::ConstPtr &joy_msg);
       void jointMode(const sensor_msgs::Joy::ConstPtr &joy_msg);
+      void ikMode(const sensor_msgs::Joy::ConstPtr &joy_msg);
       
       int mode;
       bool during_reset;
@@ -57,7 +60,7 @@ namespace aero {
       // common
       int reset_pose_button;
       int switch_basic_mode;
-      int switch_joint_mode;
+      int switch_mode;
       // twist
       int enable_button;
       int enable_turbo_button;
@@ -94,8 +97,20 @@ namespace aero {
       double right_wrist_dp, right_wrist_dy;
       std::map<std::string, int> wrist_map;
       std::map<std::string, double> scale_wrist_map;
+      // ik mode
+      bool enable_ik;
+      std::map<std::string, int> ik_map;
+      std::map<std::string, double> scale_ik_map;
+      aero::Transform eef;
+      aero::Translation eef_pos;
+      aero::Translation pos, pos_dp;
+      //aero::Quaternion init_rot;
+      //aero::Quaternion rot_top;
+      aero::Quaternion rot_left;
       
       ros::Publisher cmd_vel_pub;
+      ros::Publisher ik_bool_pub;
+
       interface::AeroMoveitInterface::Ptr robot;
       std::map<aero::joint, double> min_bounds, max_bounds;
       ros::Subscriber joy_sub;

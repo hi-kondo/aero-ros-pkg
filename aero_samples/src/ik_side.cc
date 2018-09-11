@@ -44,7 +44,7 @@ int main(int argc, char **argv)
   aero::Quaternion  rot_right(0.707,0.707,0.0,0.0); //side Quaternion
   aero::Quaternion  rot_left(0.707,-0.707,0.0,0.0); //side Quaternion
   aero::Quaternion  rot_test(0.707,-0.707,0.0,0.0); //side Quaternion
-  aero::Transform   pose1 = pos * rot * rot_test;
+  aero::Transform   pose1 = pos * rot;
 
   ROS_INFO("ik target");
   ROS_INFO("pos");

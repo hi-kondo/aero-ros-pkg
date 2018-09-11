@@ -4,9 +4,11 @@ reset_pose_button: 16
 ### start button switches to basic mode
 switch_basic_mode: 3
 ### select button switches to joint mode
-switch_joint_mode: 0
+switch_mode: 0
+
 ### triangle button press disables button and axes during basic mode
 external_command: 12
+
 
 # basic mode
 ## teleop-twist
@@ -83,3 +85,13 @@ wrist:
 scale_wrist:
   yaw: 0.03
   pitch: 0.05
+## ik
+ik:
+  x: 1
+  y: 0
+  z: 3
+  enable_right: 8
+scale_ik:
+  x: 0.01
+  y: 0.01
+  z: 0.01
