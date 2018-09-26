@@ -101,7 +101,7 @@ else
     ./scripts/configure_controllers.sh $dir
 fi
 
-if [[ $dir = "arm_typeC" ]]
+if [ $dir = "arm_typeC" -o $dir = "arm_typeCTy" ] ;
 then
   input_file=$(rospack find aero_ros_controller)/src/AeroHandController.cc
   input_file2=$(rospack find aero_std)/include/aero_std/AeroMoveitInterface.hh
