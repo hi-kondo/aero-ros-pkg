@@ -22,7 +22,7 @@ namespace aero
     //  lower : 0DOF
     //    (wheel: 1DOF * 4)
 
-    const static size_t AERO_DOF = 10;
+    const static size_t AERO_DOF = 14;
     const static size_t AERO_DOF_UPPER = 8;
     const static size_t AERO_DOF_LOWER = 2;
     const static size_t AERO_DOF_WHEEL = 4;
@@ -58,8 +58,8 @@ namespace aero
     const static size_t RAW_R_WRIST_Y = 3;
     const static size_t RAW_R_WRIST_TOP = 4;
     const static size_t RAW_R_WRIST_BOTTOM = 5;
-    const static size_t RAW_R_HAND_Y = 6;
-    const static size_t RAW_R_THUMB = 7;
+    const static size_t RAW_R_THUMB = 11;
+    const static size_t RAW_R_HAND_Y = 12;
     // 28 - 31: Force Sensor (uint8_t * 6, 2bytes N/A)
     // 32 - 34: N/A
 

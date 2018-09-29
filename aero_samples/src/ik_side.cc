@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 #endif
   //aero::Vector3 pos(0.57, -0.15, 1.1);
   //aero::Translation pos(0.85, -0.15, 0.80);
-   aero::Translation pos(0.7, -0.0, 0.70);
+   aero::Translation pos(0.68, -0.1, 0.75);
 
   aero::Quaternion  rot(1.0, 0.0, 0.0, 0.0);
   aero::Quaternion  init_rot(1.0, 0.0, 0.0, 0.0); //default Quaternion
