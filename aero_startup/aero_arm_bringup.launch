@@ -4,7 +4,7 @@
         output="screen" >
     <param name="port_lower" value="/dev/aero_lower" />
     <param name="port_upper" value="/dev/aero_upper" />
-    <param name="controller_rate" value="50"  /> <!-- [ Hz ] ( rate of read/write cycle) -->
+    <param name="controller_rate" value="120"  /> <!-- [ Hz ] ( rate of read/write cycle) -->
     <param name="overlap_scale"   value="2.0" /> <!-- scaling of target time -->
   </node>
 
