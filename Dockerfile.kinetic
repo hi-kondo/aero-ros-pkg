@@ -32,7 +32,7 @@ RUN source /opt/ros/${MY_DISTRO}/setup.bash \
 
 WORKDIR ${WORKSPACE}/src/aero-ros-pkg/aero_description
 RUN source ${WORKSPACE}/devel/setup.bash \
-    && ./setup.sh typeF
+    && ./setup.sh arm_typeC
 
 WORKDIR ${WORKSPACE}
 ## build check
@@ -43,16 +43,5 @@ RUN source ${WORKSPACE}/devel/setup.bash \
 RUN source ${WORKSPACE}/devel/setup.bash \
     && catkin build aero_gazebo
 
-## test
-RUN if [ "$RUN_TESTS" = "true" ]; then \
-    source ${WORKSPACE}/devel/setup.bash \
-    && catkin run_tests --no-deps aero_ros_controller \
-    && catkin_test_results ${WORKSPACE}/build/aero_ros_controller; fi
-RUN if [ "$RUN_TESTS" = "true" ]; then \
-    source ${WORKSPACE}/devel/setup.bash \
-    && catkin run_tests --no-deps aero_std \
-    && catkin_test_results ${WORKSPACE}/build/aero_std; fi
-RUN if [ "$RUN_TESTS" = "true" ]; then \
-    source ${WORKSPACE}/devel/setup.bash \
-    && catkin run_tests --no-deps aero_samples; fi
-    #&& catkin_test_results ${WORKSPACE}/build/aero_samples; fi
+
+

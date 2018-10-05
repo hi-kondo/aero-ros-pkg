@@ -14,7 +14,7 @@ int main(int argc, char **argv)
   aero::interface::AeroMoveitInterface::Ptr robot(new aero::interface::AeroMoveitInterface(nh));
   //robot->sendResetManipPose();
   robot->setPoseVariables(aero::pose::reset_manip);
-  robot->sendModelAngles(3000);
+  robot->sendModelAngles(3000, aero::ikrange::arm);
   sleep(3);
 
 
@@ -28,14 +28,14 @@ int main(int argc, char **argv)
   side.height = 0.2;
 
   auto req = aero::Grasp<aero::SideGrasp>(side);
-  req.mid_ik_range = aero::ikrange::wholebody;
-  req.end_ik_range = aero::ikrange::wholebody;
+  req.mid_ik_range = aero::ikrange::arm_lifter;
+  req.end_ik_range = aero::ikrange::arm_lifter;
 
 
   robot->openHand(req.arm);
 
-  if (//robot->sendPickIK(req) // TODO: not implemented yet
-      true) {
+  if (robot->sendPickIK(req)==true // TODO: not implemented yet
+      ) {
     ROS_INFO("success");
     robot->sendGrasp(req.arm);
     sleep(3);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     sleep(1);
     ROS_INFO("reseting robot pose");
     robot->setPoseVariables(aero::pose::reset_manip);
-    robot->sendModelAngles(3000);
+    robot->sendModelAngles(3000,aero::ikrange::arm);
     sleep(3);
   }
   else ROS_INFO("failed");

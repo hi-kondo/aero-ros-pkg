@@ -33,19 +33,19 @@ public: AeroHandInterface(ros::NodeHandle &_nh) : RobotInterface(_nh)
     } else {
       rhand.reset();
     }
-
-    lhand.reset(new robot_interface::TrajectoryClient(_nh,
-                            "lhand_controller/follow_joint_trajectory",
-                            "lhand_controller/state",
-                             lhand_joints
-                             ));
-    if(lhand->waitForServer(timeout)) {
-      this->add_controller("lhand", lhand);
-    } else {
-      lhand.reset();
-    }
-
-    controller_group_["both_hands"]  = {"rhand", "lhand"};
+////////////
+////////////    lhand.reset(new robot_interface::TrajectoryClient(_nh,
+////////////       			    "lhand_controller/follow_joint_trajectory",
+////////////                            "lhand_controller/state",
+////////////                             lhand_joints
+////////////                             ));
+////////////    if(lhand->waitForServer(timeout)) {
+////////////      this->add_controller("lhand", lhand);
+////////////    } else {
+////////////      lhand.reset();
+////////////    }
+////////////
+////////////    controller_group_["both_hands"]  = {"rhand", "lhand"};
   }
 
   robot_interface::TrajectoryClient::Ptr rhand; // 2 DOF

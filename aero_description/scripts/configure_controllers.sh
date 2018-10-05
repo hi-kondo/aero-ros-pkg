@@ -159,9 +159,10 @@ do
         cp $copy_from_file $output_file
         sed -i "1i\/*" $output_file
         sed -i "2i\ * This file auto-generated from script. Do not Edit!" $output_file
-        sed -i "3i\ * Original : aero_description/${robot}/controllers/${source}" $output_file
+        sed -i "3i\ * Original : ${parts_dir}/${source}" $output_file
         sed -i "4i\*/" $output_file
 
+	
         # add executable to CMakeLists.txt
         ### do not add
         # write_to_line=$(grep -n -m 1 ">>> add controllers" $cmake_file | cut -d ':' -f1)

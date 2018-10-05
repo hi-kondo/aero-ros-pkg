@@ -13,7 +13,7 @@ int main(int argc, char **argv)
   aero::interface::AeroMoveitInterface::Ptr robot(new aero::interface::AeroMoveitInterface(nh));
   ROS_INFO("reseting robot pose");
   robot->setPoseVariables(aero::pose::reset_manip);
-  robot->sendModelAngles(3000);
+  robot->sendModelAngles(3000, aero::ikrange::arm);
   sleep(3);
 
 
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
   ROS_INFO("if no object exists in the hand, warn message will appear");
   //sleep(5);
   ROS_INFO("send");
-  robot->sendGrasp(aero::arm::larm, 50);// arm and grasping power(max 100[%])
+  robot->sendGrasp(aero::arm::rarm, 100);// arm and grasping power(max 100[%])
   ROS_INFO("end");
   sleep(5);
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
   ROS_INFO("please be careful not to drop objects");
   //sleep(5);
   ROS_INFO("send");
-  robot->openHand(aero::arm::larm);
+  robot->openHand(aero::arm::rarm);
   ROS_INFO("end");
 
   ROS_INFO("demo node finished");

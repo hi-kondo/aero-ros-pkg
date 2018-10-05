@@ -39,7 +39,8 @@ int main(int argc, char **argv)
       if (solved) {
         ROS_INFO("solved %lf, %lf => %lf %lf", x, z,
                  controller->getJoint(aero::joint::ankle),
-                 controller->getJoint( aero::joint::knee));
+                 controller->getJoint(aero::joint::knee)
+                 );
       }
     }
   }

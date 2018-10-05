@@ -27,6 +27,9 @@ target_link_libraries(fk_sample_node ${catkin_LIBRARIES})
 add_executable(ik_sample_node src/ik.cc)
 target_link_libraries(ik_sample_node ${catkin_LIBRARIES})
 
+add_executable(ik_side_sample_node src/ik_side.cc)
+target_link_libraries(ik_side_sample_node ${catkin_LIBRARIES})
+
 add_executable(interpolation_sample_node src/interpolation.cc)
 target_link_libraries(interpolation_sample_node ${catkin_LIBRARIES})
 
@@ -68,6 +71,9 @@ target_link_libraries(set_marker_sample_node ${catkin_LIBRARIES})
 
 add_executable(convert_world_sample_node src/convert_world.cc)
 target_link_libraries(convert_world_sample_node ${catkin_LIBRARIES})
+
+add_executable(joy_controll src/joy_controll.cc)
+target_link_libraries(joy_controll ${catkin_LIBRARIES})
 
 # tests
 
