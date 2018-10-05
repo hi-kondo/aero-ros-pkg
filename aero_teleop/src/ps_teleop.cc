@@ -1,4 +1,5 @@
 #include "aero_teleop/ps_teleop.hh"
+#include <nav_msgs/Odometry.h>
 
 ////////////////////////////////////////////////////////////////////
 aero::teleop::ps_teleop::ps_teleop
@@ -15,6 +16,9 @@ aero::teleop::ps_teleop::ps_teleop
 
   cmd_vel_pub = nh_param.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
   ik_bool_pub = nh_param.advertise<std_msgs::Bool>("/ik_bool",10);
+  eef_pos_pub = nh_param.advertise<nav_msgs::Odometry>("/eef_pos", 10);
+
+
 
   robot.reset(new aero::interface::AeroMoveitInterface(nh_param));
   usleep(1000 * 1000);
@@ -131,6 +135,7 @@ void aero::teleop::ps_teleop::loop() {
   if(enable_ik) {
     aero::Translation goal_pos;
     std_msgs::Bool ik_bool_msg;
+     
 
     aero::Quaternion init_rot(1.0,0.0,0.0,0.0);
     aero::Quaternion rot_top(0.707,-0.707,0.0,0.0);

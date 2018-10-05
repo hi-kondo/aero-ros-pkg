@@ -110,6 +110,7 @@ namespace aero {
       
       ros::Publisher cmd_vel_pub;
       ros::Publisher ik_bool_pub;
+      ros::Publisher eef_pos_pub;
 
       interface::AeroMoveitInterface::Ptr robot;
       std::map<aero::joint, double> min_bounds, max_bounds;
