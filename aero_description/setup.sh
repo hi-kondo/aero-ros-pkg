@@ -101,24 +101,7 @@ else
     ./scripts/configure_controllers.sh $dir
 fi
 
-if [[ $dir = "arm_typeC" ]]
-then
-  input_file=$(rospack find aero_ros_controller)/src/AeroHandController.cc
-  input_file2=$(rospack find aero_std)/include/aero_std/AeroMoveitInterface.hh
-  echo "overwriting AeroHandController.cc"
-  sed -i -e "36,48s:^://:" $input_file
-  echo "renewing AeroMoveitInterface.hh"
-  sed -i.bak -e '/USING_UPPERTYPEF/ s/1/0/' $input_file2 
-else
-  input_file=$(rospack find aero_ros_controller)/src/AeroHandController.cc
-  input_file2=$(rospack find aero_std)/include/aero_std/AeroMoveitInterface.hh
-  sed -i -e "36,48 s#//###g" $input_file
-  echo "renewing AeroMoveitInterface.hh"
-  sed -i.bak -e '/USING_UPPERTYPEF/ s/0/1/' $input_file2 
-fi
-
 printf "\nbuild aero_startup ...\n"
-catkin b aero_ros_controller
 catkin b aero_startup
 build_result=$?
 

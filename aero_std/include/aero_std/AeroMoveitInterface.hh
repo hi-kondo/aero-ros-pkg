@@ -3,7 +3,6 @@
 
 #define USING_HAND   1
 #define USING_GRASP  1
-#define USING_UPPERTYPEF 1
 
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model/robot_model.h>
@@ -336,7 +335,7 @@ namespace aero
 
       /// @brief send grasp command to real robot
       /// @param[in] _arm aero::arm::(rarm|larm)
-      /// @param[in] _power grasp power from 0\% to 000\%
+      /// @param[in] _power grasp power from 0\% to 100\%
     public: bool sendGrasp(aero::arm _arm, int _power=100);
       /// @brief send grasp command to real robot (automatically opens when fail detected)
       /// @brief open real robot's hand
@@ -363,7 +362,7 @@ namespace aero
 #endif
 
       // @brief overwrite command speed on real robot
-      // @param[in] _speed_factor < 0.0 for slow down, > 0.0 for speed up
+      // @param[in] _speed_factor < 1.0 for slow down, > 1.0 for speed up
     public: void overwriteSpeed(float _speed_factor);
 
       // robot_model

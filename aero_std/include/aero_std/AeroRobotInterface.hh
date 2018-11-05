@@ -29,8 +29,7 @@ public:
 
     // group settings
     add_group("both_arms",   {"rarm", "larm"});
-    //add_group("upper_body",  {"rarm", "larm", "waist", "head"});
-    add_group("upper_body",  {"rarm"});
+    add_group("upper_body",  {"rarm", "larm", "waist", "head"});
     add_group("torso",       {"waist", "lifter"});
     add_group("without_head",{"rarm", "larm", "waist", "lifter"});
 

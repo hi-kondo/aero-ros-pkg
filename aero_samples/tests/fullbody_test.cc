@@ -208,9 +208,6 @@ int main(int argc, char **argv)
   robot->sendModelAngles(2000);
   robot->waitInterpolation();
 
-  sleep(5);
-
-#if 1
   // test lifter
   ROS_INFO("lifter x:0.0 z:-0.4");
   robot->sendLifter(0.0, -0.4, 3000);
@@ -236,7 +233,6 @@ int main(int argc, char **argv)
   robot->sendLifter(0.0, 0.0, 3000);
   robot->waitInterpolation();
   usleep(500 * 1000);
-#endif
 
   ROS_INFO("demo node finished");
   ros::shutdown();
