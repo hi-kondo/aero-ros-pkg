@@ -30,9 +30,9 @@ source ~/ros/${ROS_DISTRO}/devel/setup.bash
 
 ### source setup.bash in ~/.bashrc
 
-Please add the following line to ~/.bashrc
+Please add the following line to ~/.bashrc  
 ```
-source ~/ros/indigo/devel/setup.bash
+source ~/ros/${ROS_DISTRO}/devel/setup.bash
 ```
 
 ## Install
@@ -96,6 +96,9 @@ then add RobotModel
 ## Simulation
 
 See [aero_gazebo](https://github.com/seed-solutions/aero-ros-pkg/blob/master/aero_gazebo/README.md)
+
+## MoveIt
+See [aero_moveit_config](https://github.com/seed-solutions/aero-ros-pkg/tree/master/aero_moveit_config/README.md)
 
 
 ## Samples
