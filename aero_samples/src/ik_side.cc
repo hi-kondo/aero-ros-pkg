@@ -37,14 +37,14 @@ int main(int argc, char **argv)
 #endif
   //aero::Vector3 pos(0.57, -0.15, 1.1);
   //aero::Translation pos(0.85, -0.15, 0.80);
-   aero::Translation pos(0.68, -0.1, 0.75);
+   aero::Translation pos(0.8, -0.1, 0.75);
 
   aero::Quaternion  rot(1.0, 0.0, 0.0, 0.0);
   aero::Quaternion  init_rot(1.0, 0.0, 0.0, 0.0); //default Quaternion
   aero::Quaternion  rot_right(0.707,0.707,0.0,0.0); //side Quaternion
-  aero::Quaternion  rot_left(0.707,-0.707,0.0,0.0); //side Quaternion
-  aero::Quaternion  rot_test(0.707,-0.707,0.0,0.0); //side Quaternion
-  aero::Transform   pose1 = pos * rot;
+  aero::Quaternion  rot_left(0.0,1.0,0.0,0.0); //side Quaternion
+  aero::Quaternion  rot_top(0.707,-0.707,0.0,0.0); //side Quaternion
+  aero::Transform   pose1 = pos * rot * rot_left;
 
   ROS_INFO("ik target");
   ROS_INFO("pos");

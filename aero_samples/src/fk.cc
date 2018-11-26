@@ -21,11 +21,11 @@ int main(int argc, char **argv)
   robot->setRobotStateToCurrentState();
 
   // how to move selected joint
-  double r_elbow_to = 1.57;
+  double r_elbow_to = -3.14;
   aero::joint_angle_map joint_angles;
   robot->getRobotStateVariables(joint_angles);// save angles from robot model
-  ROS_INFO("left elbow moves from %f to %f", joint_angles[aero::joint::r_hand_y], r_elbow_to);
-  joint_angles[aero::joint::r_hand_y] = r_elbow_to;// replace elbow's angle value
+  //ROS_INFO("left elbow moves from %f to %f", joint_angles[aero::joint::r_hand_y], r_elbow_to);
+  joint_angles[aero::joint::r_wrist_y] = r_elbow_to;// replace elbow's angle value
 
   ROS_INFO("moveing left elbow");
   robot->setRobotStateVariables(joint_angles);
@@ -34,8 +34,8 @@ int main(int argc, char **argv)
 
 
   ROS_INFO("reseting robot pose");
-  robot->setPoseVariables(aero::pose::reset_manip);
-  robot->sendModelAngles(3000, aero::ikrange::arm);
+  //robot->setPoseVariables(aero::pose::reset_manip);
+  //robot->sendModelAngles(3000, aero::ikrange::arm);
   sleep(3);
   ROS_INFO("demo node finished");
   ros::shutdown();
