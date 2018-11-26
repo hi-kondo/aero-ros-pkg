@@ -50,12 +50,12 @@
         <joint name="r_wrist_y_joint" value="-1.57" />
     </group_state>
     <group_state name="initial" group="upper_body">
-        <joint name="r_elbow_joint" value="0" />
+        <joint name="r_elbow_joint" value="1.57" />
         <joint name="r_shoulder_p_joint" value="0" />
         <joint name="r_shoulder_y_joint" value="0" />
         <joint name="r_wrist_p_joint" value="0" />
         <joint name="r_wrist_r_joint" value="0" />
-        <joint name="r_wrist_y_joint" value="0" />
+        <joint name="r_wrist_y_joint" value="-1.57" />
     </group_state>
     <group_state name="reset-manip-pose" group="upper_body">
         <joint name="r_elbow_joint" value="1.57" />
@@ -63,7 +63,7 @@
         <joint name="r_shoulder_y_joint" value="0" />
         <joint name="r_wrist_p_joint" value="0" />
         <joint name="r_wrist_r_joint" value="0" />
-        <joint name="r_wrist_y_joint" value="0" />
+        <joint name="r_wrist_y_joint" value="-3.14" />
     </group_state>
     <group_state name="reset-pose-rarm" group="rarm">
         <joint name="r_elbow_joint" value="1.57" />
