@@ -1,14 +1,13 @@
 FROM ros:kinetic-robot
 SHELL ["bash", "-c"]
 
-ENV MY_DISTRO kinetic
 ENV WORKSPACE /catkin_ws
 
 ARG RUN_TESTS=false
 
 # prepare catkin and all euslisp packages
 RUN apt-get -q -qq update && apt-get -q -qq install -y \
-    ros-${MY_DISTRO}-catkin \
+    ros-${ROS_DISTRO}-catkin \
     python-wstools python-catkin-tools \
     bc net-tools iputils-ping
 
@@ -20,14 +19,14 @@ COPY . ${WORKSPACE}/src/aero-ros-pkg/
 
 # catkin build
 WORKDIR ${WORKSPACE}
-RUN source /opt/ros/${MY_DISTRO}/setup.bash \
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && rosdep install -q -y -r --from-paths src --ignore-src \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/
 
-RUN source /opt/ros/${MY_DISTRO}/setup.bash \
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && catkin config --init
-RUN source /opt/ros/${MY_DISTRO}/setup.bash \
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
     && catkin build aero_description
 
 WORKDIR ${WORKSPACE}/src/aero-ros-pkg/aero_description

@@ -7,8 +7,7 @@ int main(int argc, char *argv[])
   ros::init(argc, argv, "teleop_joy");
   ros::NodeHandle nh_param;
   aero::teleop::ps_teleop::Ptr joy
-    (new aero::teleop::ps_teleop(nh_param));  
-
+    (new aero::teleop::ps_teleop(nh_param));
   
   ros::Rate r(10);
   while (ros::ok()) {

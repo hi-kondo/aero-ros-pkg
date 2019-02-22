@@ -8,6 +8,8 @@ int main(int argc, char **argv)
   // init ros
   ros::init(argc, argv, "minimum_sample_node");
   ros::NodeHandle nh;
+
+  //system("rosnode kill /aero_hand_controller");
   
   // init robot interface
   aero::interface::AeroMoveitInterface::Ptr robot(new aero::interface::AeroMoveitInterface(nh));

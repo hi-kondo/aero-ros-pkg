@@ -122,8 +122,6 @@ int main(int argc, char **argv)
   double l_wrist_y_to = -0.5;
   double r_wrist_y_to =  0.5;
 
-  robot->getRobotStateVariables(joint_angles);
-
   ROS_INFO("--- WRIST ROLL JOINTS ---");
   joint_angles[aero::joint::l_wrist_r] = l_wrist_r_to;
   joint_angles[aero::joint::r_wrist_r] = r_wrist_r_to;

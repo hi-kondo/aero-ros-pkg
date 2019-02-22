@@ -12,8 +12,12 @@ include_directories(${catkin_INCLUDE_DIRS})
 add_definitions(-std=c++11)
 
 # check ros_distro
-if("$ENV{ROS_DISTRO}" STRGREATER "jade")
-  add_definitions(-DKINETIC)
+if("$ENV{ROS_DISTRO}" STREQUAL "melodic")
+  add_definitions(-DROS_MELODIC)
+elseif("$ENV{ROS_DISTRO}" STREQUAL "kinetic")
+  add_definitions(-DROS_KINETIC)
+elseif("$ENV{ROS_DISTRO}" STREQUAL "indigo")
+  add_definitions(-DROS_INDIGO)
 endif()
 
 # samples
@@ -89,6 +93,8 @@ target_link_libraries(fullarm_test_node ${catkin_LIBRARIES})
 add_executable(lifter_ik_test_node tests/lifter_ik.cc)
 target_link_libraries(lifter_ik_test_node ${catkin_LIBRARIES})
 
+add_executable(get_eef_pos tests/get_eef_pos.cc)
+target_link_libraries(get_eef_pos ${catkin_LIBRARIES})
 ##add_executable(upper_controller_test_node tests/upper_controller_test.cc)
 ##target_link_libraries(upper_controller_test_node ${catkin_LIBRARIES})
 
