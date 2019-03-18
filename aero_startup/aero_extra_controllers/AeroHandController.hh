@@ -1,6 +1,6 @@
 /*
  * This file auto-generated from script. Do not Edit!
- * Original : aero_description/arm_typeC/controllers/AeroHandController.hh
+ * Original : aero_description/typeFCETy/controllers/AeroHandController.hh
 */
 /// robot dependant constant // for fcsc hand
 #define POSITION_Right 12

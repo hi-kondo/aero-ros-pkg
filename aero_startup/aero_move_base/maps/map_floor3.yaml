@@ -1,4 +1,4 @@
-image: /home/seed/ros/kinetic/src/elevator_move/config/maps/map.pgm
+image: /home/seed/ros/kinetic/src/aero-ros-pkg/aero_startup/aero_move_base/maps/map.pgm
 resolution: 0.025000
 origin: [-10.000000, -10.000000, 0.000000]
 negate: 0

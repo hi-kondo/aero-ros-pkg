@@ -3,7 +3,7 @@
 
 #define USING_HAND   1
 #define USING_GRASP  1
-#define USING_UPPERTYPEF 1
+#define USING_UPPERTYPEF 0
 
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model/robot_model.h>

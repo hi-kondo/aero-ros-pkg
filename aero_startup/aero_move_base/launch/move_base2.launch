@@ -25,7 +25,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 -->
 <launch>
   <arg name="map_file"
-       default="$(find aero_startup)/aero_move_base/maps/map_floor3.yaml"/>
+       default="$(find elevator_move)/config/maps/map.yaml"/>
   <arg name="no_static_map" default="false"/>
 
    <!-- global planner type -->

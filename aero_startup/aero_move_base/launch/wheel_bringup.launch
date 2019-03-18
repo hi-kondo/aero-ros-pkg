@@ -3,10 +3,10 @@
 <launch>
 
   <!--  URG Settings -->
-  <!--arg name="~ip_address" default="192.168.10.53" -->
-  <!--arg name="~frame_id" default="wheels_base_laser_link" -->
+  <arg name="~ip_address" default="192.168.10.53" />
+  <arg name="~frame_id" default="wheels_base_laser_link"/>
 
-  <!--node name="urg_node" pkg="urg_node" type="urg_node" -->
+  <node name="urg_node" pkg="urg_node" type="urg_node" >
     <!--param name="~ip_address" value="$(arg ~address)" /-->
     <!--param name="~frame_id" value="$(arg ~frame_id)" /-->
 
@@ -14,7 +14,7 @@
     <!--param name="~angle_min" value="-2.007128639793479" -->
     <!--param name="~angle_max" value="2.007128639793479" -->
 
-  <!--/node -->
+  </node>
 
   <!-- DualShock3 Settings -->
   <arg name="joy_config" default="ps3-holonomic" /> 

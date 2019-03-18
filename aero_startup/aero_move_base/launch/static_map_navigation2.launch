@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <!-- Run the map server -->
-  <arg name="map_file"              default="$(find aero_startup)/aero_move_base/maps/map_floor3.yaml"/>
+  <arg name="map_file"              default="$(find elevator_move)/config/maps/map.yaml"/>
   <arg name="map_localization_file" default="$(arg map_file)"/>
 
   <node name="map_localization_server" pkg="map_server" type="map_server" args="$(arg map_localization_file)" >
@@ -13,7 +13,7 @@
   <include file="$(find aero_startup)/aero_move_base/launch/amcl.launch" />
 
   <!--- Run Move Base -->
-  <include file="$(find aero_startup)/aero_move_base/launch/move_base.launch">
+  <include file="$(find aero_startup)/aero_move_base/launch/move_base2.launch">
     <arg name="map_file" value="$(arg map_file)" />
   </include>
 </launch>

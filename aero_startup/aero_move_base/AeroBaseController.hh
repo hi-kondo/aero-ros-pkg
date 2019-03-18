@@ -1,6 +1,6 @@
 /*
  * This file auto-generated from script. Do not Edit!
- * Original : aero_description/arm_typeC/controllers/AeroBaseController.hh
+ * Original : aero_description/typeFCETy/controllers/AeroBaseController.hh
 */
 #include <vector>
 #include <string>

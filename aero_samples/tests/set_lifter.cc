@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 #if 1
  
   ROS_INFO("lifter x:0.0 z:-0.2");
-  robot->sendLifter(0.0, -0.2, 3000);
+  robot->sendLifter(0.0, -0.0, 3000);
   robot->waitInterpolation();
   usleep(500 * 1000);
 
