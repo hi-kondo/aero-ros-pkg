@@ -12,11 +12,11 @@ namespace aero {
   namespace navigation {
 
     static const float radius = 0.076;
-    static const float Radius = 0.2974535;
+    static const float Radius = 0.300822;
     // static const float max_velocity = 450.0;  // rpm * 10
     static const float max_velocity = 90.0;  // deg/s
 
-    static const float ktheta = -5.54420;
+    static const float ktheta = -5.58199;
     static const float kv = 13.1579;
 
     class AeroBaseConfig {
