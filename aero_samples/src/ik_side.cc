@@ -9,9 +9,14 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "ik_side_sample_node");
   ros::NodeHandle nh;
 
+  
+
   // init robot interface
   aero::interface::AeroMoveitInterface::Ptr robot(new aero::interface::AeroMoveitInterface(nh));
   ROS_INFO("reseting robot pose");
+
+  robot->setRobotStateToCurrentState();
+  double shoulder_yaw = robot->getJoint(aero::joint::r_shoulder_y);
   robot->setPoseVariables(aero::pose::reset_manip);
   robot->sendModelAngles(3000,aero::ikrange::arm);
   sleep(3);
@@ -37,14 +42,15 @@ int main(int argc, char **argv)
 #endif
   //aero::Vector3 pos(0.57, -0.15, 1.1);
   //aero::Translation pos(0.85, -0.15, 0.80);
-   aero::Translation pos(0.68, -0.1, 0.75);
+   aero::Translation pos(0.68, 0.1, 0.75);
 
   aero::Quaternion  rot(1.0, 0.0, 0.0, 0.0);
   aero::Quaternion  init_rot(1.0, 0.0, 0.0, 0.0); //default Quaternion
   aero::Quaternion  rot_right(0.707,0.707,0.0,0.0); //side Quaternion
   aero::Quaternion  rot_left(0.707,-0.707,0.0,0.0); //side Quaternion
   aero::Quaternion  rot_test(0.707,-0.707,0.0,0.0); //side Quaternion
-  aero::Transform   pose1 = pos * rot;
+  aero::Quaternion  rot_yaw(cos(shoulder_yaw/2), 0.0, 0.0, sin(shoulder_yaw/2));
+  aero::Transform   pose1 = pos * rot_yaw * rot;
 
   ROS_INFO("ik target");
   ROS_INFO("pos");
@@ -95,7 +101,7 @@ int main(int argc, char **argv)
     sleep(3);
     ROS_INFO("reseting robot pose");
     robot->setPoseVariables(aero::pose::reset_manip);
-    robot->sendModelAngles(3000,aero::ikrange::arm);
+    //robot->sendModelAngles(3000,aero::ikrange::arm);
     sleep(3);
   } else {
     ROS_WARN("ik failed");
