@@ -1,0 +1,11 @@
+<launch>
+
+
+  <param name="robot_description"
+	command="$(find xacro)/xacro --inorder /home/seed/Desktop/trx_s.urdf.xacro" />
+
+
+  <node name="aero_state_publisher"
+        pkg="robot_state_publisher" type="robot_state_publisher" />
+
+</launch>
