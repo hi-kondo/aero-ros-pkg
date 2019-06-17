@@ -1,11 +1,29 @@
 <launch>
+  <node pkg="aero_ros_controller" type="aero_ros_controller"
+        name="aero_ros_controller"
+        output="screen" >
+    <param name="port_lower" value="/dev/aero_lower" />
+    <param name="port_upper" value="/dev/aero_upper" />
+    <param name="controller_rate" value="15"  /> <!-- [ Hz ] ( rate of read/write cycle) -->
+    <param name="overlap_scale"   value="2.0" /> <!-- scaling of target time -->
+  </node>
 
+  <rosparam>
+    joint_state_controller:
+      type: joint_state_controller/JointStateController
+      publish_rate: 50
+  </rosparam>
+<!-- controller settings / load from yaml -->
+  <rosparam command="load"
+            file="$(find aero_description)/robots/typeFCET/controller_settings.yaml" />
 
+  <arg name="gui" default="False" />
   <param name="robot_description"
-	command="$(find xacro)/xacro --inorder /home/seed/Desktop/trx_s.urdf.xacro" />
+	command="$(find xacro)/xacro --inorder /home/seed/ros/kinetic/src/aero-ros-pkg/aero_description/robots/typeFCET/aero.urdf.xacro" />
 
-
-  <node name="aero_state_publisher"
-        pkg="robot_state_publisher" type="robot_state_publisher" />
+  <param name="use_gui" value="$(arg gui)" />
+  <node name="aero_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <node name="joint_state_publiser" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d urdf.rviz" />
 
 </launch>
