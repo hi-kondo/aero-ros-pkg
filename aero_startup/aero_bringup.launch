@@ -4,7 +4,7 @@
         output="screen" >
     <param name="port_lower" value="/dev/aero_lower" />
     <param name="port_upper" value="/dev/aero_upper" />
-    <param name="controller_rate" value="15"  /> <!-- [ Hz ] ( rate of read/write cycle) -->
+    <param name="controller_rate" value="50"  /> <!-- [ Hz ] ( rate of read/write cycle) -->
     <param name="overlap_scale"   value="2.0" /> <!-- scaling of target time -->
   </node>
 
@@ -16,9 +16,9 @@
 
   <!-- controller settings / load from yaml -->
   <rosparam command="load"
-            file="$(find aero_description)/robots/controller_settings.yaml" />
+            file="$(find aero_description)/robots/typeFCET/controller_settings.yaml" />
 
-  <include file="$(find aero_moveit_config)/launch/planning_context.launch">
+  <include file="$(find aero_moveit_config)/typeFCET/launch/planning_context.launch">
     <arg name="load_robot_description" value="true"/>
   </include>
 
@@ -35,6 +35,6 @@
   <!-- depend on robot type -->
   <node name="aero_hand_controller"
         pkg="aero_ros_controller" type="aero_hand_controller_node"
-        output="screen" />
+         />
 
 </launch>
