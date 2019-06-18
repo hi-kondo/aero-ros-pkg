@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>aero_startup</name>
+  <name>aero_bringup</name>
   <version>2.1.0</version>
-  <description>The aero_startup package</description>
+  <description>The aero_bringup package</description>
 
   <license>BSD</license>
   <maintainer email="youhei@jsk.imi.i.u-tokyo.ac.jp">

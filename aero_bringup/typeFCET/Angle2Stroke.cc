@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <stdint.h>
 #include <math.h> // for M_PI
-#include "aero_hardware_interface/Angle2Stroke.hh"
+#include "Angle2Stroke.hh"
 
 namespace aero
 {
@@ -141,8 +141,8 @@ namespace aero
       float rad2Deg = 180.0 / M_PI;
       float scale = 100.0;
       dualJoint right_wrist =
-        WristRollPitchTable(rad2Deg * _angles[23],
-                            rad2Deg * _angles[24]);
+        WristRollPitchTable(rad2Deg * _angles[22],
+                            rad2Deg * _angles[23]);
       dualJoint left_wrist =
         WristRollPitchTable(rad2Deg * _angles[8],
                             -rad2Deg * _angles[9]);
@@ -150,46 +150,42 @@ namespace aero
         WaistRollPitchTable(-rad2Deg * _angles[2],
                             rad2Deg * _angles[1]);
       dualJoint neck =
-        NeckRollPitchTable(rad2Deg * _angles[17],
-                           rad2Deg * _angles[16]);
+        NeckRollPitchTable(rad2Deg * _angles[16],
+                           rad2Deg * _angles[15]);
 
       // ros_order -> can_order
-      _strokes[0] = scale * rad2Deg * _angles[15];
+      _strokes[0] = scale * rad2Deg * _angles[14];
       _strokes[1] = scale * neck.one;
       _strokes[2] = scale * neck.two;
 
       _strokes[3] =
-        scale * ShoulderPitchTable(-rad2Deg * _angles[18]);
+        scale * ShoulderPitchTable(-rad2Deg * _angles[17]);
       _strokes[4] =
-        scale * ShoulderRollTable(-rad2Deg * _angles[19]);
-      _strokes[5] = -scale * rad2Deg * _angles[20];
-      _strokes[6] = scale * ElbowPitchTable(-rad2Deg * _angles[21]);
-      _strokes[7] = -scale * rad2Deg * _angles[22];
+        scale * ShoulderRollTable(-rad2Deg * _angles[18]);
+      _strokes[5] = -scale * rad2Deg * _angles[19];
+      _strokes[6] = scale * ElbowPitchTable(-rad2Deg * _angles[20]);
+      _strokes[7] = -scale * rad2Deg * _angles[21];
       _strokes[8] = scale * right_wrist.one;
       _strokes[9] = scale * right_wrist.two;
-      _strokes[10] = -scale * (rad2Deg * _angles[26] + 65.0) * 0.12;
-      _strokes[11] = -scale * rad2Deg * _angles[25];
-      _strokes[12] = scale * (rad2Deg * _angles[29] - 15) * 0.18;
+      _strokes[10] = -scale * (rad2Deg * _angles[27] - 50.0) * 0.18;
 
-      _strokes[13] =
+      _strokes[11] =
         scale * ShoulderPitchTable(-rad2Deg * _angles[3]);
-      _strokes[14] =
+      _strokes[12] =
         scale * ShoulderRollTable(rad2Deg * _angles[4]);
-      _strokes[15] = -scale * rad2Deg * _angles[5];
-      _strokes[16] = scale * ElbowPitchTable(-rad2Deg * _angles[6]);
-      _strokes[17] = -scale * rad2Deg * _angles[7];
-      _strokes[18] = scale * left_wrist.one;
-      _strokes[19] = scale * left_wrist.two;
-      _strokes[20] = scale * (rad2Deg * _angles[11] - 65.0) * 0.12;
-      _strokes[21] = -scale * rad2Deg * _angles[10];
-      _strokes[22] = -scale * (rad2Deg * _angles[14] + 15) * 0.09;
+      _strokes[13] = -scale * rad2Deg * _angles[5];
+      _strokes[14] = scale * ElbowPitchTable(-rad2Deg * _angles[6]);
+      _strokes[15] = -scale * rad2Deg * _angles[7];
+      _strokes[16] = scale * left_wrist.one;
+      _strokes[17] = scale * left_wrist.two;
+      _strokes[18] = scale * (rad2Deg * _angles[13] + 50.0) * 0.18;
 
-      _strokes[23] = scale * waist.two;
-      _strokes[24] = scale * waist.one;
-      _strokes[25] = scale * rad2Deg * _angles[0];
+      _strokes[19] = scale * waist.two;
+      _strokes[20] = scale * waist.one;
+      _strokes[21] = scale * rad2Deg * _angles[0];
 
-      _strokes[26] = scale * LegTable(rad2Deg * _angles[31]);
-      _strokes[27] = scale * LegTable(- rad2Deg * _angles[30]);
+      _strokes[22] = scale * LegTable(  rad2Deg * _angles[29]);
+      _strokes[23] = scale * LegTable(- rad2Deg * _angles[28]);
     }
 
   }

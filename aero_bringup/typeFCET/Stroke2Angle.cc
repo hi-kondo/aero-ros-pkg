@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <stdint.h>
 #include <math.h> // for M_PI
-#include "aero_hardware_interface/Stroke2Angle.hh"
+#include "Stroke2Angle.hh"
 
 namespace aero
 {

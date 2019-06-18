@@ -3,7 +3,7 @@
  * Original : aero_startup/.templates/aero_hardware_interface/AeroControllers.cc
  * Depend : aero_description/{my_robot}/headers/Constants.hh
 */
-#include "aero_hardware_interface/AeroControllers.hh"
+#include "AeroControllers.hh"
 
 using namespace aero;
 using namespace controller;
@@ -43,38 +43,32 @@ AeroUpperController::AeroUpperController(const std::string& _port) :
   stroke_joint_indices_.push_back(
       AJointIndex(1, 9, 9, std::string("can_r_wrist_bottom")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 10, 11, std::string("can_r_index")));
+      AJointIndex(1, 10, 11, std::string("can_r_hand")));
+  stroke_ref_vector_[10] = 900;
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 11, 12, std::string("can_r_hand_y")));
+      AJointIndex(1, 11, 18, std::string("can_l_shoulder_p")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 12, 13, std::string("can_r_thumb")));
+      AJointIndex(1, 12, 19, std::string("can_l_shoulder_r")));
+  stroke_ref_vector_[12] = 1119;
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 13, 18, std::string("can_l_shoulder_p")));
+      AJointIndex(1, 13, 20, std::string("can_l_elbow_y")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 14, 19, std::string("can_l_shoulder_r")));
-  stroke_ref_vector_[14] = 1119;
+      AJointIndex(1, 14, 21, std::string("can_l_elbow_p")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 15, 20, std::string("can_l_elbow_y")));
+      AJointIndex(1, 15, 22, std::string("can_l_wrist_y")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 16, 21, std::string("can_l_elbow_p")));
+      AJointIndex(1, 16, 23, std::string("can_l_wrist_top")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 17, 22, std::string("can_l_wrist_y")));
+      AJointIndex(1, 17, 24, std::string("can_l_wrist_bottom")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 18, 23, std::string("can_l_wrist_top")));
+      AJointIndex(1, 18, 26, std::string("can_l_hand")));
+  stroke_ref_vector_[18] = 900;
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 19, 24, std::string("can_l_wrist_bottom")));
+      AJointIndex(1, 19, 10, std::string("can_waist_right")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 20, 26, std::string("can_l_index")));
+      AJointIndex(1, 20, 25, std::string("can_waist_left")));
   stroke_joint_indices_.push_back(
-      AJointIndex(1, 21, 27, std::string("can_l_hand_y")));
-  stroke_joint_indices_.push_back(
-      AJointIndex(1, 22, 28, std::string("can_l_thumb")));
-  stroke_joint_indices_.push_back(
-      AJointIndex(1, 23, 10, std::string("can_waist_right")));
-  stroke_joint_indices_.push_back(
-      AJointIndex(1, 24, 25, std::string("can_waist_left")));
-  stroke_joint_indices_.push_back(
-      AJointIndex(1, 25, 15, std::string("can_waist_y")));
+      AJointIndex(1, 21, 15, std::string("can_waist_y")));
 
   angle_joint_indices_["waist_y_joint"] = 0;
   angle_joint_indices_["waist_p_joint"] = 1;
@@ -86,26 +80,24 @@ AeroUpperController::AeroUpperController(const std::string& _port) :
   angle_joint_indices_["l_wrist_y_joint"] = 7;
   angle_joint_indices_["l_wrist_p_joint"] = 8;
   angle_joint_indices_["l_wrist_r_joint"] = 9;
-  angle_joint_indices_["l_hand_y_joint"] = 10;
-  angle_joint_indices_["l_indexbase_joint"] = 11;
-  angle_joint_indices_["l_indexmid_joint"] = 12;
-  angle_joint_indices_["l_indexend_joint"] = 13;
-  angle_joint_indices_["l_thumb_joint"] = 14;
-  angle_joint_indices_["neck_y_joint"] = 15;
-  angle_joint_indices_["neck_p_joint"] = 16;
-  angle_joint_indices_["neck_r_joint"] = 17;
-  angle_joint_indices_["r_shoulder_p_joint"] = 18;
-  angle_joint_indices_["r_shoulder_r_joint"] = 19;
-  angle_joint_indices_["r_shoulder_y_joint"] = 20;
-  angle_joint_indices_["r_elbow_joint"] = 21;
-  angle_joint_indices_["r_wrist_y_joint"] = 22;
-  angle_joint_indices_["r_wrist_p_joint"] = 23;
-  angle_joint_indices_["r_wrist_r_joint"] = 24;
-  angle_joint_indices_["r_hand_y_joint"] = 25;
-  angle_joint_indices_["r_indexbase_joint"] = 26;
-  angle_joint_indices_["r_indexmid_joint"] = 27;
-  angle_joint_indices_["r_indexend_joint"] = 28;
-  angle_joint_indices_["r_thumb_joint"] = 29;
+  angle_joint_indices_["l_indexbase_joint"] = 10;
+  angle_joint_indices_["l_indexmid_joint"] = 11;
+  angle_joint_indices_["l_indexend_joint"] = 12;
+  angle_joint_indices_["l_thumb_joint"] = 13;
+  angle_joint_indices_["neck_y_joint"] = 14;
+  angle_joint_indices_["neck_p_joint"] = 15;
+  angle_joint_indices_["neck_r_joint"] = 16;
+  angle_joint_indices_["r_shoulder_p_joint"] = 17;
+  angle_joint_indices_["r_shoulder_r_joint"] = 18;
+  angle_joint_indices_["r_shoulder_y_joint"] = 19;
+  angle_joint_indices_["r_elbow_joint"] = 20;
+  angle_joint_indices_["r_wrist_y_joint"] = 21;
+  angle_joint_indices_["r_wrist_p_joint"] = 22;
+  angle_joint_indices_["r_wrist_r_joint"] = 23;
+  angle_joint_indices_["r_indexbase_joint"] = 24;
+  angle_joint_indices_["r_indexmid_joint"] = 25;
+  angle_joint_indices_["r_indexend_joint"] = 26;
+  angle_joint_indices_["r_thumb_joint"] = 27;
 
 
   get_command(CMD_GET_POS, stroke_cur_vector_);
@@ -194,8 +186,8 @@ AeroLowerController::AeroLowerController(const std::string& _port) :
   wheel_indices_.push_back(
       AJointIndex(2, 3, 5, std::string("can_rear_l_wheel")));
 
-  angle_joint_indices_["knee_joint"] = 30;
-  angle_joint_indices_["ankle_joint"] = 31;
+  angle_joint_indices_["knee_joint"] = 28;
+  angle_joint_indices_["ankle_joint"] = 29;
 
 
   get_command(CMD_GET_POS, stroke_cur_vector_);
