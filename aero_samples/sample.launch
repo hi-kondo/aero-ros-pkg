@@ -1,5 +1,0 @@
-<launch>
-<node pkg="aero_samples" type="minimum_sample_node"
-      name="minimum"
-      output="screen" launch-prefix="valgrind -v"/>
-</launch>

@@ -4,7 +4,7 @@
 
 #include <aero_ros_controller/RobotInterface.hh>
 
-#include "aero_extra_controllers/AeroHandController.hh" // at aero_startup
+#include "aero_ros_contoroller/AeroHandController.hh" // at aero_startup
 
 static inline bool getPosition(const robot_interface::joint_angle_map &_act_map,
                                const std::string &_name, double &_pos) {
