@@ -116,6 +116,46 @@ std::string SEED485Controller::get_version()
   return version;
 }
 
+float SEED485Controller::get_voltage()
+{
+  std::vector<uint8_t> data(6);
+  data[0] = 0xFD;
+  data[1] = 0xDF;
+  data[2] = 0x02;
+  data[3] = CMD_GET_TMP_VOLT;
+  data[4] = 31;
+
+  //check sum
+  int32_t b_check_sum = 0;
+  
+  for(size_t i = 2; i < data.size() - 1; ++i){
+   b_check_sum += data[i];
+  }
+ 
+  data[data.size() - 1] =
+   ~(reinterpret_cast<uint8_t*>(&b_check_sum)[0]);
+
+  send_data(data);
+  
+  std::vector<uint8_t> dat;
+  dat.resize(8);
+  read(dat, 8);
+  uint16_t header = decode_short_(&dat[0]);
+  int16_t cmd;
+  uint8_t* bvalue = reinterpret_cast<uint8_t*>(&cmd);
+  bvalue[0] = dat[3];
+  bvalue[1] = 0x00;
+  
+  if(header != 0xdffd || cmd != CMD_GET_TMP_VOLT){
+	flush();
+	return 0;
+  }
+
+  float voltage = static_cast<uint16_t>((dat[RAW_HEADER_OFFSET] << 8)+dat[RAW_HEADER_OFFSET + 1]) * 0.1;
+  return voltage;
+
+  }
+
 //////////////////////////////////////////////////
 void SEED485Controller::read(std::vector<uint8_t>& _read_data, const size_t _length)
 {

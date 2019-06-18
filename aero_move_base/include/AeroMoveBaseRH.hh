@@ -21,8 +21,8 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
 
-#include "aero_move_base/AeroBaseController.hh" // class AeroBaseConfig
-#include "aero_robot_hardware.h"
+#include "AeroBaseController.hh" // class AeroBaseConfig
+#include "aero_ros_controller/aero_robot_hardware.h"
 
 namespace aero
 {

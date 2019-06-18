@@ -39,6 +39,8 @@ namespace aero
       /// @brief get version of SEED controller
      public: std::string get_version();
 
+     public: float get_voltage();
+
       /// @brief read from SEED controller
      public: void read(std::vector<uint8_t>& _read_data, const size_t _length=RAW_DATA_LENGTH);
 
@@ -104,6 +106,8 @@ namespace aero
 
       /// @brief get version of SEED controller
      public: std::string get_version();
+
+     public: float get_voltage();
 
       /// @brief servo on command
      public: void servo_on();
