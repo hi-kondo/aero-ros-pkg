@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(aero_startup)
+project(aero_bringup)
 
 # Dependencies
 
@@ -68,11 +68,11 @@ else()
 endif()
 
 add_library(aero_controllers
-  aero_hardware_interface/AeroControllers.cc
-  aero_hardware_interface/AeroControllerProto.cc
-  aero_hardware_interface/AngleJointNames.cc
-  aero_hardware_interface/Stroke2Angle.cc
-  aero_hardware_interface/Angle2Stroke.cc
+  typeFCET/AeroControllers.cc
+  typeFCET/AeroControllerProto.cc
+  typeFCET/AngleJointNames.cc
+  typeFCET/Stroke2Angle.cc
+  typeFCET/Angle2Stroke.cc
   )
 target_link_libraries(aero_controllers ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(aero_controllers ${PROJECT_NAME}_gencpp)

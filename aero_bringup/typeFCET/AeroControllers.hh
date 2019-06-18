@@ -14,9 +14,9 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/thread.hpp>
 
-#include "aero_hardware_interface/Constants.hh"
-#include "aero_hardware_interface/AJointIndex.hh"
-#include "aero_hardware_interface/AeroControllerProto.hh"
+#include "Constants.hh"
+#include "AJointIndex.hh"
+#include "AeroControllerProto.hh"
 
 namespace aero
 {

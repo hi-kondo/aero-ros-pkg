@@ -30,7 +30,7 @@
   <depend>pluginlib</depend>
   <depend>urdf</depend>
 
-  <depend>aero_startup</depend>
+  <depend>aero_bringup</depend>
 
   <depend>rostest</depend>
 
