@@ -9,7 +9,7 @@
 
 #include "aero_robot_hardware.h"
 
-#include <aero_bringup/GraspControl.h>
+#include <aero_startup/GraspControl.h>
 
 namespace aero
 {

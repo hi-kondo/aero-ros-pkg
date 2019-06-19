@@ -57,14 +57,14 @@
 #include <urdf/model.h>
 
 // AERO
-#include "typeFCET/Constants.hh"
-#include "typeFCET/CommandList.hh"
-#include "typeFCET/AeroControllers.hh"
+#include "aero_hardware_interface/Constants.hh"
+#include "aero_hardware_interface/CommandList.hh"
+#include "aero_hardware_interface/AeroControllers.hh"
 
-#include "typeFCET/AngleJointNames.hh"
-#include "typeFCET/Stroke2Angle.hh"
-#include "typeFCET/Angle2Stroke.hh"
-#include "typeFCET/UnusedAngle2Stroke.hh"
+#include "aero_hardware_interface/AngleJointNames.hh"
+#include "aero_hardware_interface/Stroke2Angle.hh"
+#include "aero_hardware_interface/Angle2Stroke.hh"
+#include "aero_hardware_interface/UnusedAngle2Stroke.hh"
 
 #include <mutex>
 
