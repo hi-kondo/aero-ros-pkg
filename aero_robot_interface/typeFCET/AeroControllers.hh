@@ -15,8 +15,8 @@
 #include <boost/thread.hpp>
 
 #include "Constants.hh"
-#include "AJointIndex.hh"
-#include "AeroControllerProto.hh"
+#include <seed_solutions_sdk_ori/AJointIndex.hh>
+#include <seed_solutions_sdk_ori/seed_robot_command.hh>
 
 namespace aero
 {

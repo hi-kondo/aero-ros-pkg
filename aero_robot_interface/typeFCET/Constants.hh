@@ -1,7 +1,3 @@
-/*
- * This file auto-generated from script. Do not Edit!
- * Original : aero_description/{my_robot}/headers/Constants.hh
-*/
 #ifndef AERO_CONTROLLER_CONSTANTS_H_
 #define AERO_CONTROLLER_CONSTANTS_H_
 

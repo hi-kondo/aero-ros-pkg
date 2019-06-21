@@ -58,10 +58,10 @@
 
 // AERO
 #include <seed_solutions_sdk_ori/seed_robot_command.hh>
+#include <stroke_convert.hh>
+#include <typeFCET/AeroControllers.hh>
 
-#include "typeFCET/Stroke2Angle.hh"
-#include "typeFCET/Angle2Stroke.hh"
-#include "typeFCET/UnusedAngle2Stroke.hh"
+
 
 #include <mutex>
 
@@ -140,19 +140,19 @@ public:
 
   std::string getVersion() {
     mutex_upper_.lock();
-    std::string version = seed_->get_version();
+    std::string version = controller_upper_->get_version();
     mutex_upper_.unlock();
     return version;
   }
 
   void handScript(uint16_t _sendnum, uint16_t _script) {
     mutex_upper_.lock();
-    seed_.AERO_Snd_Script(_sendnum, _script);
+    controller_upper_->Hand_Script(_sendnum, _script);
     mutex_upper_.unlock();
   }
   void setMaxSingleCurrent(uint16_t _sendnum, uint16_t _power) {
     mutex_upper_.lock();
-    seed_->set_max_single_current(_sendnum, _power);
+    controller_upper_->set_max_single_current(_sendnum, _power);
     mutex_upper_.unlock();
   }
   void stopUpper() {
@@ -167,7 +167,7 @@ public:
   }
   void servo(uint16_t _sendnum) { // send servo on command
     mutex_upper_.lock();
-    seed_->set_command(aero::controller::CMD_MOTOR_SRV, _sendnum, 1);
+    controller_upper_->set_command(aero::controller::CMD_MOTOR_SRV, _sendnum, 1);
     mutex_upper_.unlock();
   }
   double getPeriod() { return ((double)CONTROL_PERIOD_US_) / (1000 * 1000); }
@@ -223,6 +223,9 @@ protected:
 
   std::mutex mutex_lower_;
   std::mutex mutex_upper_;
+
+  std::string robot_type_;
+
 };
 
 typedef boost::shared_ptr<AeroRobotHW> AeroRobotHWPtr;

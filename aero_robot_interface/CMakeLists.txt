@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(aero_typeFCET_bringup)
+project(aero_robot_interface)
 
 # Dependencies
 
@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   trajectory_msgs geometry_msgs nav_msgs control_msgs
   move_base_msgs
   message_generation
+  seed_solutions_sdk_ori
 )
 if(NOT catkin_LIBRARIES)
   message(FATAL "catkin required but not supported")
@@ -44,14 +45,14 @@ endif()
 
 catkin_package(
   CATKIN_DEPENDS
-  roscpp tf std_msgs sensor_msgs roslib
+  roscpp tf std_msgs sensor_msgs roslib seed_solutions_sdk_ori
   trajectory_msgs geometry_msgs nav_msgs control_msgs move_base_msgs
   DEPENDS
   INCLUDE_DIRS ./
-  LIBRARIES aero_controllers
+  LIBRARIES aero_controllers 
 )
 
-include_directories(${catkin_INCLUDE_DIRS} ${aero_startup_SOURCE_DIR})
+include_directories(${catkin_INCLUDE_DIRS} ${aero_robot_interface_SOURCE_DIR})
 
 # add c++ dependencies :
 include(CheckCXXCompilerFlag)
@@ -68,13 +69,35 @@ else()
 endif()
 
 add_library(aero_controllers
-  aero_hardware_interface/AeroControllers.cc
-  aero_hardware_interface/AeroControllerProto.cc
-  aero_hardware_interface/AngleJointNames.cc
-  aero_hardware_interface/Stroke2Angle.cc
-  aero_hardware_interface/Angle2Stroke.cc
+  typeFCET/AeroControllers.cc
+  typeFCET/Stroke2Angle.cc
+  typeFCET/Angle2Stroke.cc
+
   )
+
+
 target_link_libraries(aero_controllers ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(aero_controllers ${PROJECT_NAME}_gencpp)
+add_dependencies(aero_controllers ${PROJECT_NAME}_gencpp )
+
+add_library(stroke_convert
+     stroke_convert.cc
+)
+target_link_libraries(stroke_convert ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 
+target_link_libraries(aero_controllers ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(aero_controllers ${PROJECT_NAME}_gencpp )
+
+##add_executable(wait_interpolation aero_controller_manager/wait_interpolation.cc)
+##target_link_libraries(wait_interpolation ${catkin_LIBRARIES})
+
+# Executables
+
+# >>> add controllers
+# <<< add controllers
+
+# >>> add dependencies
+# <<< add dependencies
+
+# >>> add applications
+# <<< add applications

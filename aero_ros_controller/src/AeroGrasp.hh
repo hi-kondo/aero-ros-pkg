@@ -9,7 +9,7 @@
 
 #include "aero_robot_hardware.h"
 
-#include <aero_bringup/GraspControl.h>
+#include <aero_robot_interface/GraspControl.h>
 
 namespace aero
 {
@@ -32,32 +32,32 @@ class AeroGrasp
 
  public: ~AeroGrasp() {} ;
 
- public: bool GraspControlCallback(aero_startup::GraspControl::Request&  _req,
-                                   aero_startup::GraspControl::Response& _res) {
+ public: bool GraspControlCallback(aero_robot_interface::GraspControl::Request&  _req,
+                                   aero_robot_interface::GraspControl::Response& _res) {
    // hw_->stopUpper(); // not needed
 
    ROS_WARN("AeroGrasp: Grasp pos: %d, script %d, power: %d",
             _req.position, _req.script, _req.power);
 
    // return if cancel script
-   if (_req.script == aero_startup::GraspControlRequest::SCRIPT_CANCEL) {
+   if (_req.script == aero_robot_interface::GraspControlRequest::SCRIPT_CANCEL) {
      ROS_WARN("AeroGrasp: setMaxSingleCurrent");
      hw_->setMaxSingleCurrent(_req.position, _req.power);
      ROS_WARN("AeroGrasp: handscript cancel");
      hw_->handScript(_req.position, _req.script);
      // hw_->startUpper(); // not needed
      return true;
-   } else if (_req.script == aero_startup::GraspControlRequest::SCRIPT_GRASP) {
+   } else if (_req.script == aero_robot_interface::GraspControlRequest::SCRIPT_GRASP) {
      ROS_WARN("AeroGrasp: setMaxSingleCurrent");
      hw_->setMaxSingleCurrent(_req.position, _req.power);
      ROS_WARN("AeroGrasp: handScript grasp");
      hw_->handScript(_req.position, _req.script);
      ros::Duration(2.8).sleep(); // wait 2.8 seconds, as script takes max 2.8 seconds!
-   } else if (_req.script == aero_startup::GraspControlRequest::SCRIPT_UNGRASP) {
+   } else if (_req.script == aero_robot_interface::GraspControlRequest::SCRIPT_UNGRASP) {
      ROS_WARN("AeroGrasp: handScript ungrasp");
      hw_->handScript(_req.position, _req.script);
      ros::Duration(2.7).sleep(); // wait 2.7 seconds, as script takes max 2.7 seconds!
-   } else if (_req.script == aero_startup::GraspControlRequest::COMMAND_SERVO) {
+   } else if (_req.script == aero_robot_interface::GraspControlRequest::COMMAND_SERVO) {
      ROS_WARN("AeroGrasp: cancel step-out");
      hw_->servo(_req.position);
      ROS_WARN("AeroGrasp: setMaxSingleCurrent"); // just in case

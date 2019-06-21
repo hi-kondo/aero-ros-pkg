@@ -21,8 +21,8 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
 
-#include "AeroBaseController.hh" // class AeroBaseConfig
-#include "aero_ros_controller/aero_robot_hardware.h"
+#include "/home/seed/ros/kinetic/src/aero-ros-pkg/aero_robot_interface/aero_move_base/include/AeroBaseController.hh" // class AeroBaseConfig
+#include "aero_robot_hardware.h"
 
 namespace aero
 {

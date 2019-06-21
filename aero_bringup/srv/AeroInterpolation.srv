@@ -1,4 +1,0 @@
-int8[] type
-geometry_msgs/Polygon[] p
----
-bool status

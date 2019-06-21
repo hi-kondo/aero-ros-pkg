@@ -41,6 +41,7 @@
 #include <urdf/model.h>
 #include "std_msgs/Float32.h"
 
+
 #include <thread>
 
 namespace aero_robot_hardware
@@ -195,6 +196,7 @@ bool AeroRobotHW::init(ros::NodeHandle& root_nh, ros::NodeHandle &robot_hw_nh)//
   // lower_send_enable_ = true;
 
   voltage_pub_ = robot_hw_nh.advertise<std_msgs::Float32>("voltage", 1);
+
 
   return true;
 }

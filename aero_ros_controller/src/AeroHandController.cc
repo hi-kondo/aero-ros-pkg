@@ -1,10 +1,10 @@
 #include <ros/ros.h>
-#include <aero_bringup/HandControl.h>
-#include <aero_bringup/GraspControl.h>
+#include <aero_robot_interface/HandControl.h>
+#include <aero_robot_interface/GraspControl.h>
 
 #include <aero_ros_controller/RobotInterface.hh>
 
-#include <aero_ros_controller/AeroHandController.hh> // at aero_bringup
+#include <aero_ros_controller/AeroHandController.hh> // at aero_robot_interface
 
 static inline bool getPosition(const robot_interface::joint_angle_map &_act_map,
                                const std::string &_name, double &_pos) {
@@ -52,7 +52,7 @@ public: AeroHandInterface(ros::NodeHandle &_nh) : RobotInterface(_nh)
   robot_interface::TrajectoryClient::Ptr lhand; // 2 DOF
 };
 
-using namespace aero_bringup;
+using namespace aero_robot_interface;
 
 class AeroHandControl {
 public:
@@ -63,7 +63,7 @@ public:
     service_ = nh.advertiseService("/aero_hand_controller",
                                    &AeroHandControl::HandControl, this);
 
-    g_client_ = nh.serviceClient<aero_bringup::GraspControl>(
+    g_client_ = nh.serviceClient<aero_robot_interface::GraspControl>(
       "/aero_ros_controller/grasp_control");
 
     if ( g_client_.waitForExistence(ros::Duration(3.0)) ) {
@@ -73,7 +73,7 @@ public:
     }
 
     {
-      aero_bringup::GraspControl g_srv;
+      aero_robot_interface::GraspControl g_srv;
       g_srv.request.position = POSITION_Left;
       g_srv.request.script = GraspControlRequest::SCRIPT_CANCEL;
       g_srv.request.power = (100 << 8) + 30;
@@ -85,7 +85,7 @@ public:
       executing_flg_left_ = false;
     }
     {
-      aero_bringup::GraspControl g_srv;
+      aero_robot_interface::GraspControl g_srv;
       g_srv.request.position = POSITION_Right;
       g_srv.request.script = GraspControlRequest::SCRIPT_CANCEL;
       g_srv.request.power = (100 << 8) + 30;
@@ -99,8 +99,8 @@ public:
     ROS_INFO("Initialized Handcontroller");
   }
 
-  bool HandControl(aero_bringup::HandControl::Request &req,
-                   aero_bringup::HandControl::Response &res)
+  bool HandControl(aero_robot_interface::HandControl::Request &req,
+                   aero_robot_interface::HandControl::Response &res)
   {
     ROS_DEBUG("HandControl com: %d, hand %d, pow: %d, time: %f, thre: %f %f, lr_ang: %f %f",
               req.command, req.hand, req.power, req.time_sec,
@@ -109,13 +109,13 @@ public:
     if (req.hand != HandControlRequest::HAND_LEFT &&
         req.hand != HandControlRequest::HAND_RIGHT &&
         req.hand != HandControlRequest::HAND_BOTH ) {
-      ROS_ERROR("not existing hand (= %d) for aero_bringup/HandControl service", req.hand);
+      ROS_ERROR("not existing hand (= %d) for aero_robot_interface/HandControl service", req.hand);
       res.success = false;
       res.status  = "invalid hand parameter";
       return true;
     }
 
-    aero_bringup::GraspControl g_srv;
+    aero_robot_interface::GraspControl g_srv;
 
     int power = req.power;
     float grasp_time  = 1.0;
@@ -217,7 +217,7 @@ public:
       }
       break;
     default:
-      ROS_ERROR("command does not exist for aero_bringup/HandControl service");
+      ROS_ERROR("command does not exist for aero_robot_interface/HandControl service");
     }
     return true;
   }
@@ -225,7 +225,7 @@ public:
   void OpenHand(int hand)
   {
     ROS_DEBUG("OpenHand %d", hand);
-    aero_bringup::GraspControl g_srv;
+    aero_robot_interface::GraspControl g_srv;
 
     robot_interface::joint_angle_map map;
     if (hand == HandControlRequest::HAND_LEFT) {
@@ -250,9 +250,9 @@ public:
   void GraspAngle (int hand, float larm_angle, float rarm_angle, float time=0.5)
   {
     ROS_DEBUG("Grasp Angle: %d %f %f %f", hand, larm_angle, rarm_angle, time);
-    //aero_bringup::AeroSendJoints srv;
+    //aero_robot_interface::AeroSendJoints srv;
     robot_interface::joint_angle_map map;
-    aero_bringup::GraspControl g_srv;
+    aero_robot_interface::GraspControl g_srv;
     switch(hand) {
     case HandControlRequest::HAND_BOTH:
       R_GRASP();

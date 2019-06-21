@@ -40,7 +40,7 @@
 #include <ros/ros.h>
 #include <controller_manager/controller_manager.h>
 #include "aero_robot_hardware.h"
-#include "aero_move_base/AeroMoveBaseRH.hh"
+#include "AeroMoveBaseRH.hh"
 #include "AeroGrasp.hh"
 
 using namespace aero_robot_hardware;

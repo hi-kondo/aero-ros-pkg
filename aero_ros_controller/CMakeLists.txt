@@ -12,7 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   joint_limits_interface
   angles
   urdf
-  aero_bringup
+  seed_solutions_sdk_ori
+  aero_robot_interface
 #  pluginlib
 )
 
@@ -29,7 +30,8 @@ catkin_package(
     joint_limits_interface
     angles
     urdf
-    aero_bringup
+    seed_solutions_sdk_ori
+    aero_robot_interface
     #    pluginlib
 )
 
@@ -65,8 +67,8 @@ add_library(robot_interface src/RobotInterface.cc )
 target_link_libraries(robot_interface ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ## Executable
-add_executable(${PROJECT_NAME} src/aero_ros_controller.cpp src/aero_robot_hardware.cpp)
-target_link_libraries(${PROJECT_NAME} aero_controllers ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_executable(${PROJECT_NAME} src/aero_ros_controller.cpp src/aero_robot_hardware.cpp src/AeroMoveBaseRH.cc) 
+target_link_libraries(${PROJECT_NAME} aero_controllers stroke_convert ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(aero_hand_controller_node src/AeroHandController.cc)
 target_link_libraries(aero_hand_controller_node robot_interface ${catkin_LIBRARIES} ${Boost_LIBRARIES})
